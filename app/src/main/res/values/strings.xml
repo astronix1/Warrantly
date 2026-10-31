@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Warrantly</string>
+    <string name="tagline">Everything you own. Nothing forgotten.</string>
+    <string name="add_product">Add Product</string>
+    <string name="edit_product">Edit Product</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="brand">Brand</string>
+    <string name="category">Category</string>
+    <string name="purchase_date">Purchase Date</string>
+    <string name="warranty_end_date">Warranty End Date</string>
+    <string name="no_products">No products yet</string>
+    <string name="add_first_product">Add Your First Product</string>
+    <string name="notification_channel_name">Warranty Reminders</string>
+    <string name="notification_channel_description">Reminders for upcoming warranty expirations</string>
+</resources>
