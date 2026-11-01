@@ -273,4 +273,34 @@ class AddProductViewModel(
             }
         }
     }
+
+    fun processReceiptForAutoFill(context: Context, uri: Uri, mimeType: String?) {
+        // First, attach the document normally
+        onDocumentSelected(uri)
+
+        // Then, run OCR to auto-fill fields
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true) }
+
+            // Pass the mimeType to the updated parser
+            val ocrResult = com.example.warrantly.domain.usecase.ReceiptParser.parseDocument(context, uri, mimeType)
+
+            _uiState.update { currentState ->
+                currentState.copy(
+
+                    isSaving = false,
+                    name = ocrResult?.productName ?: currentState.name,
+                    seller = ocrResult?.merchant ?: currentState.seller,
+                    purchaseDate = ocrResult?.date ?: currentState.purchaseDate,
+                    purchasePriceText = ocrResult?.totalAmount ?: currentState.purchasePriceText,
+                    warrantyStartDate = ocrResult?.date ?: currentState.warrantyStartDate,
+
+                    nameError = if (ocrResult?.productName != null) null else currentState.nameError
+                )
+            }
+            recalculateEndDate()
+        }
+    }
+
+
 }

@@ -160,7 +160,15 @@ fun AddProductScreen(
     val docPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
-        uri?.let { viewModel.onDocumentSelected(it) }
+        uri?.let {
+            val mimeType = context.contentResolver.getType(it)
+            // UPDATE THIS IF STATEMENT to include application/pdf
+            if (mimeType?.startsWith("image/") == true || mimeType == "application/pdf") {
+                viewModel.processReceiptForAutoFill(context, it, mimeType)
+            } else {
+                viewModel.onDocumentSelected(it)
+            }
+        }
     }
 
 

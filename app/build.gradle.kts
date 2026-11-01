@@ -68,9 +68,10 @@ dependencies {
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)
-
     // WorkManager
+    implementation("com.google.mlkit:text-recognition:16.0.1")
     implementation(libs.androidx.work.runtime.ktx)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     // Coil
     implementation(libs.coil.compose)
